@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/widgets/Custom_text.dart';
 
 class Statistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Container(
+      width: width * .55,
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -20,13 +23,7 @@ class Statistics extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Estadísticas',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          CustomText(labelText: "Estadísticas"),
           SizedBox(height: 10),
           Container(
             height: 150,
