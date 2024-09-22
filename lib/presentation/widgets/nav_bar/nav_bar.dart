@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
+import '../../pages/requestAnalisis/analysis_request.dart';
 import '../../pages/template/template_screen.dart';
 import 'Text_nav_bar.dart';
 
@@ -29,9 +30,14 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               SizedBox(width: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return AnalysisRequestPage();
+                  }));
+                },
                 child: TextNavBar(
-                  text: 'Análisis',
+                  text: 'Solicitud de Analisis',
                   color: AppTheme.secondary,
                 ),
               ),

@@ -69,6 +69,7 @@ flutter:
 
   assets:
     - assets/json/api.json
+    - assets/images/logo.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
