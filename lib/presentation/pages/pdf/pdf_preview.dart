@@ -15,64 +15,71 @@ pw.Widget buildTestResult(Map<String, dynamic> test) {
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           mainAxisAlignment: pw.MainAxisAlignment.start,
           children: [
-
-            pw.Column(
-                mainAxisAlignment: pw.MainAxisAlignment.start,
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  if (test['test']['name'] != "")
-                    pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildTestInfo('${test['test']['name']}')),
-                  if (test['test']['method'] != "")
-                    pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildTestInfo('Metodo: ${test['test']['method']}')),
-                  if (test['test']['sample'] != "")
-                    pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildTestInfo('Prueba: ${test['test']['sample']}')),
-                ]),
-
-
-            pw.Container(
-                width: PdfPageFormat.letter.width * .3,
-                child: buildTestInfo('${test['test']['result']}')),
-            pw.Column(
-              mainAxisAlignment: pw.MainAxisAlignment.start,
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                if (test['references'] != null && test['references'].isNotEmpty) ...[
-                  for (var reference in test['references']) ...[
-                    if (reference['value'] != null && reference['value'] != "")
-                      pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildSectionInfo('${reference['value']}'),
-                      ),
-                    if (reference['description'] != null && reference['description'] != "")
-                      pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildTestInfo('Descripción: ${reference['description']}'),
-                      ),
-                    if (reference['unit'] != null && reference['unit'] != "")
-                      pw.Container(
-                        width: PdfPageFormat.letter.width * .3,
-                        child: buildTestInfo('Unidades: ${reference['unit']}'),
-                      ),
-                  ],
-                ],
+        pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              if (test['test']['name'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('${test['test']['name']}')),
+              if (test['test']['method'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Metodo: ${test['test']['method']}')),
+              if (test['test']['sample'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Prueba: ${test['test']['sample']}')),
+            ]),
+        pw.Container(
+            width: PdfPageFormat.letter.width * .3,
+            child: buildTestInfo('${test['result']['result']}')),
+        pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.start,
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            if (test['references'] != null &&
+                test['references'].isNotEmpty) ...[
+              for (var reference in test['references']) ...[
+                if (reference['value'] != null && reference['value'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildSectionInfo('${reference['value']}'),
+                  ),
+                if (reference['description'] != null &&
+                    reference['description'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo(
+                        'Descripción: ${reference['description']}'),
+                  ),
+                if (reference['unit'] != null && reference['unit'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Unidades: ${reference['unit']}'),
+                  ),
               ],
-            ),
-          ]));
+              pw.SizedBox(height: 10),
+            ],
+          ],
+        ),
+      ]));
 }
 
+Future<Uint8List> _loadImage(String path) async {
+  final ByteData data = await rootBundle.load(path);
+  return data.buffer.asUint8List();
+}
 
 Future<Uint8List> previewPdf(Map<String, dynamic> jsonData) async {
   // Future<void> previewPdf(Map<String, dynamic> jsonData) async {
-    final pdf = pw.Document();
+  final pdf = pw.Document();
 
   print("going to generate pdf");
-  print(jsonData);
+
+  final Uint8List imageBytes = await _loadImage('assets/images/logo.jpg');
+  final image = pw.MemoryImage(imageBytes);
 
   pdf.addPage(
     pw.Page(
@@ -84,9 +91,16 @@ Future<Uint8List> previewPdf(Map<String, dynamic> jsonData) async {
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              buildHeader("Q.C. Maria del Rocio Soto Amaya"),
-              buildHeader("UNIVERSIDAD VERACRUZANA"),
-              buildHeader("CED. PROF. 5390670"),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Column(children: [
+                      buildHeader("Q.C. Maria del Rocio Soto Amaya"),
+                      buildHeader("UNIVERSIDAD VERACRUZANA"),
+                      buildHeader("CED. PROF. 5390670"),
+                    ]),
+                    pw.Image(image, width: 150),
+                  ]),
               pw.SizedBox(height: 10),
               pw.Container(
                   width: PdfPageFormat.letter.width,
@@ -104,32 +118,31 @@ Future<Uint8List> previewPdf(Map<String, dynamic> jsonData) async {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       mainAxisAlignment: pw.MainAxisAlignment.start,
                       children: [
-                        pw.Container(
-                          width: PdfPageFormat.letter.width * .15,
-                          child: pw.Column(
-                              mainAxisAlignment: pw.MainAxisAlignment.start,
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                buildPatientInfo("PACIENTE"),
-                                buildPatientInfo("EDAD"),
-                                buildPatientInfo("SEXO"),
-                                buildPatientInfo("FECHA"),
-                              ]),
-                        ),
-                        pw.Container(
-                          width: PdfPageFormat.letter.width * .8,
-                          child: pw.Column(
-                              mainAxisAlignment: pw.MainAxisAlignment.start,
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                buildPatientInfo("nombre paciente"),
-                                buildPatientInfo("edad paciente"),
-                                buildPatientInfo(
-                                    "sexo paciente"),
-                                buildPatientInfo("${DateTime.now()}"),
-                              ]),
-                        ),
-                      ])),
+                    pw.Container(
+                      width: PdfPageFormat.letter.width * .15,
+                      child: pw.Column(
+                          mainAxisAlignment: pw.MainAxisAlignment.start,
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            buildPatientInfo("PACIENTE"),
+                            buildPatientInfo("EDAD"),
+                            buildPatientInfo("SEXO"),
+                            buildPatientInfo("FECHA"),
+                          ]),
+                    ),
+                    pw.Container(
+                      width: PdfPageFormat.letter.width * .8,
+                      child: pw.Column(
+                          mainAxisAlignment: pw.MainAxisAlignment.start,
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            buildPatientInfo("nombre paciente"),
+                            buildPatientInfo("edad paciente"),
+                            buildPatientInfo("sexo paciente"),
+                            buildPatientInfo("${DateTime.now()}"),
+                          ]),
+                    ),
+                  ])),
               pw.SizedBox(height: 10),
               pw.Container(
                 width: PdfPageFormat.letter.width,
@@ -143,19 +156,19 @@ Future<Uint8List> previewPdf(Map<String, dynamic> jsonData) async {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       mainAxisAlignment: pw.MainAxisAlignment.start,
                       children: [
-                        pw.Container(
-                          width: PdfPageFormat.letter.width * .3,
-                          child: buildSectionInfo("Prueba"),
-                        ),
-                        pw.Container(
-                          width: PdfPageFormat.letter.width * .3,
-                          child: buildSectionInfo("Resultado"),
-                        ),
-                        pw.Container(
-                          width: PdfPageFormat.letter.width * .3,
-                          child: buildSectionInfo("Referencias"),
-                        ),
-                      ])),
+                    pw.Container(
+                      width: PdfPageFormat.letter.width * .3,
+                      child: buildSectionInfo("Prueba"),
+                    ),
+                    pw.Container(
+                      width: PdfPageFormat.letter.width * .3,
+                      child: buildSectionInfo("Resultado"),
+                    ),
+                    pw.Container(
+                      width: PdfPageFormat.letter.width * .3,
+                      child: buildSectionInfo("Referencias"),
+                    ),
+                  ])),
               pw.SizedBox(height: 10),
               if (jsonData['sections'] != null &&
                   jsonData['sections'].isNotEmpty)
@@ -202,7 +215,5 @@ Future<Uint8List> previewPdf(Map<String, dynamic> jsonData) async {
     ),
   );
 
-    return pdf.save();
-
-
+  return pdf.save();
 }

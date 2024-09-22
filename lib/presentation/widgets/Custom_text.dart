@@ -19,7 +19,7 @@ class CustomText extends StatelessWidget {
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: AppTheme.neutral700,
+          color: AppTheme.secondary,
         ),
       ),
     );

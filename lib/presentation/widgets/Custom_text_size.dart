@@ -22,7 +22,7 @@ class CustomTextSize extends StatelessWidget {
         style: TextStyle(
           fontSize: size,
           fontWeight: FontWeight.bold,
-          color: AppTheme.neutral700,
+          color: AppTheme.primary900,
         ),
       ),
     );

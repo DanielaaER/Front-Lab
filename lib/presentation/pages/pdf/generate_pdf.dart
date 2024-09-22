@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:file_picker/file_picker.dart';
@@ -8,20 +9,62 @@ import 'style/pdf_styles.dart';
 import 'widgets/header.dart';
 
 pw.Widget buildTestResult(Map<String, dynamic> test) {
+  print("test");
+  print(test);
   return pw.Container(
       child: pw.Row(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           mainAxisAlignment: pw.MainAxisAlignment.start,
           children: [
+        pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              if (test['test']['name'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('${test['test']['name']}')),
+              if (test['test']['method'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Metodo: ${test['test']['method']}')),
+              if (test['test']['sample'] != "")
+                pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Prueba: ${test['test']['sample']}')),
+            ]),
         pw.Container(
             width: PdfPageFormat.letter.width * .3,
-            child: buildTestInfo('${test['test']['name']}')),
-        pw.Container(
-            width: PdfPageFormat.letter.width * .3,
-            child: buildTestInfo('${test['test']['result']}')),
-        pw.Container(
-            width: PdfPageFormat.letter.width * .3,
-            child: buildTestInfo('${test['test']['references']}')),
+            child: buildTestInfo('${test['result']['result']}')),
+        pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.start,
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            if (test['references'] != null &&
+                test['references'].isNotEmpty) ...[
+              for (var reference in test['references']) ...[
+                if (reference['value'] != null && reference['value'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildSectionInfo('${reference['value']}'),
+                  ),
+                if (reference['description'] != null &&
+                    reference['description'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo(
+                        'Descripción: ${reference['description']}'),
+                  ),
+                if (reference['unit'] != null && reference['unit'] != "")
+                  pw.Container(
+                    width: PdfPageFormat.letter.width * .3,
+                    child: buildTestInfo('Unidades: ${reference['unit']}'),
+                  ),
+              ],
+              pw.SizedBox(height: 10),
+            ],
+          ],
+        ),
       ]));
 }
 
@@ -54,8 +97,15 @@ List<pw.Widget> buildSectionResult(section) {
   ];
 }
 
+Future<Uint8List> _loadImage(String path) async {
+  final ByteData data = await rootBundle.load(path);
+  return data.buffer.asUint8List();
+}
 Future<void> generatePdf(Map<String, dynamic> jsonData) async {
   final pdf = pw.Document();
+
+  final Uint8List imageBytes = await _loadImage('assets/images/logo.jpg');
+  final image = pw.MemoryImage(imageBytes);
 
   pdf.addPage(
     pw.Page(
@@ -67,9 +117,16 @@ Future<void> generatePdf(Map<String, dynamic> jsonData) async {
           child: pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              buildHeader("Q.C. Maria del Rocio Soto Amaya"),
-              buildHeader("UNIVERSIDAD VERACRUZANA"),
-              buildHeader("CED. PROF. 5390670"),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Column(children: [
+                      buildHeader("Q.C. Maria del Rocio Soto Amaya"),
+                      buildHeader("UNIVERSIDAD VERACRUZANA"),
+                      buildHeader("CED. PROF. 5390670"),
+                    ]),
+                    pw.Image(image, width: 150),
+                  ]),
               pw.SizedBox(height: 10),
               pw.Container(
                   width: PdfPageFormat.letter.width,
