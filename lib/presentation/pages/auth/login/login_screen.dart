@@ -9,6 +9,7 @@ import '../../../widgets/custom_button.dart';
 import '../../../widgets/custom_textfield.dart';
 import '../../../widgets/custom_textfield_password.dart';
 import '../../../widgets/nav_bar/nav_bar_logout.dart';
+import '../../template/template_screen.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -105,7 +106,11 @@ class _LoginPageState extends State<LoginPage> {
                       authService.autenticando = false;
                     });
                     if (loginOk!) {
-                      Navigator.pushNamed(context, '/home');
+                      // Navigator.pushNamed(context, '/home');
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                            return TemplateScreen();
+                          }));
                     } else {
                       showAlert(context, "Credenciales incorrectas",
                           "Por favor verifique sus credenciales");

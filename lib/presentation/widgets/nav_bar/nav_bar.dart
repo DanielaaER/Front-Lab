@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
+import '../../pages/template/template_screen.dart';
 import 'Text_nav_bar.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,7 +24,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {},
                 child: TextNavBar(
                   text: 'Inicio',
-                  color: AppTheme.primary900,
+                  color: AppTheme.secondary,
                 ),
               ),
               SizedBox(width: 20),
@@ -31,7 +32,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {},
                 child: TextNavBar(
                   text: 'Análisis',
-                  color: AppTheme.primary900,
+                  color: AppTheme.secondary,
                 ),
               ),
               SizedBox(width: 20),
@@ -39,15 +40,20 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {},
                 child: TextNavBar(
                   text: 'Pacientes',
-                  color: AppTheme.primary900,
+                  color: AppTheme.secondary,
                 ),
               ),
               SizedBox(width: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return TemplateScreen();
+                  }));
+                },
                 child: TextNavBar(
                   text: 'Crear Plantilla',
-                  color: AppTheme.primary900,
+                  color: AppTheme.secondary,
                 ),
               ),
               SizedBox(width: 20),

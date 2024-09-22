@@ -17,6 +17,7 @@ class AppTheme {
   static const Color primary900 = Color(0xFF003D7F);
 
   // Secondary colors
+  static const Color secondary = Color(0xFF003049);
   static const Color secondary100 = Color(0xFFE6F6FF);
   static const Color secondary200 = Color(0xFFCCEDFF);
   static const Color secondary300 = Color(0xFFB3E4FF);

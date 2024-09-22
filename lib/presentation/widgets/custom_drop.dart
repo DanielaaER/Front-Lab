@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
-class CustomPasswordField extends StatefulWidget {
+class CustomDropdown extends StatelessWidget {
   final String labelText;
+  final List<String> items;
   final TextEditingController controller;
+  final double width;
+  final Function(String?) onChanged;
 
-  const CustomPasswordField({
+  const CustomDropdown({
     required this.labelText,
+    required this.items,
     required this.controller,
+    required this.width,
+    required this.onChanged,
   });
-
-  @override
-  _CustomPasswordFieldState createState() => _CustomPasswordFieldState();
-}
-
-class _CustomPasswordFieldState extends State<CustomPasswordField> {
-  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: width,
       height: 45,
-      child: TextField(
-        controller: widget.controller,
-        obscureText: _obscureText,
+      child: DropdownButtonFormField<String>(
+        value: controller.text.isNotEmpty ? controller.text : null,
         decoration: InputDecoration(
-          hintText: widget.labelText,
+          hintText: labelText,
           filled: true,
           fillColor: Colors.transparent,
           border: OutlineInputBorder(
@@ -41,18 +39,18 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide(color: AppTheme.neutral200),
           ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-              color: AppTheme.neutral200,
-            ),
-            onPressed: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
-            },
-          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         ),
+        items: items.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (value) {
+          controller.text = value!;
+          onChanged(value);
+        },
       ),
     );
   }

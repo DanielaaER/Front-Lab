@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 300,
+      height: 45,
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
@@ -29,7 +30,7 @@ class CustomTextField extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
-            borderSide: BorderSide(color: AppTheme.primary900),
+            borderSide: BorderSide(color: AppTheme.secondary),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
