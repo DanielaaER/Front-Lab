@@ -1,75 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/themes/Theme.dart';
 
 import 'Text_nav_bar.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
   NavBar({required this.title});
 
-
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
+    return AppBar(
+      backgroundColor: AppTheme.baseWhite,
+      leadingWidth: MediaQuery.of(context).size.width,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        textDirection: TextDirection.rtl,
+        children: [
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: TextNavBar(
+                  text: 'Inicio',
+                  color: AppTheme.primary900,
+                ),
+              ),
+              SizedBox(width: 20),
+              TextButton(
+                onPressed: () {},
+                child: TextNavBar(
+                  text: 'Análisis',
+                  color: AppTheme.primary900,
+                ),
+              ),
+              SizedBox(width: 20),
+              TextButton(
+                onPressed: () {},
+                child: TextNavBar(
+                  text: 'Pacientes',
+                  color: AppTheme.primary900,
+                ),
+              ),
+              SizedBox(width: 20),
+              TextButton(
+                onPressed: () {},
+                child: TextNavBar(
+                  text: 'Crear Plantilla',
+                  color: AppTheme.primary900,
+                ),
+              ),
+              SizedBox(width: 20),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    // width: 20,
+                    child: IconButton(
+                      icon: Icon(Icons.search),
+                      color: AppTheme.baseWhite,
+                      onPressed: () {},
+                    ),
+                  ),
 
-            TextButton(
-              onPressed: () {},
-              child: TextNavBar(
-                text: 'Inicio',
-                color: Colors.black,
+                  SizedBox(width: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    // width: 20,
+                    child: IconButton(
+                      icon: Icon(Icons.notifications_none_outlined),
+                      color: AppTheme.baseWhite,
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  SizedBox(width: 10),
+                  // CircleAvatar(
+                  //   backgroundImage: AssetImage('assets/user_avatar.png'),
+                  //   radius: 20,
+                  // ),
+                ],
               ),
-            ),
-            SizedBox(width: 20),
-            TextButton(
-              onPressed: () {},
-              child: TextNavBar(
-                text: 'Análisis',
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(width: 20),
-            TextButton(
-              onPressed: () {},
-              child: TextNavBar(
-                text: 'Pacientes',
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(width: 20),
-            TextButton(
-              onPressed: () {},
-              child: TextNavBar(
-                text: 'Plantillas',
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.search),
-              color: Colors.blue,
-              onPressed: () {},
-            ),
-            SizedBox(width: 10),
-            IconButton(
-              icon: Icon(Icons.notifications),
-              color: Colors.blue,
-              onPressed: () {},
-            ),
-            SizedBox(width: 10),
-            // CircleAvatar(
-            //   backgroundImage: AssetImage('assets/user_avatar.png'),
-            //   radius: 20,
-            // ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
