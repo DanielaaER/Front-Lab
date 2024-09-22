@@ -176,26 +176,12 @@ class _AnalysisResultPage extends State<AnalysisResultPage> {
                     child: CustomText(labelText: jsonData['analysis']),
                   ),
                   SizedBox(width: 20),
-                  Container(
-                    width: 35,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        iconColor: AppTheme.baseWhite,
-                        textStyle: TextStyle(
-                          fontSize: 14,
-                          color: AppTheme.baseWhite,
-                        ),
-                        backgroundColor: AppTheme.primary,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'X',
-                        style: TextStyle(color: AppTheme.baseWhite),
-                      ),
-                    ),
-                  )
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ],
               ),
               SizedBox(height: 20),

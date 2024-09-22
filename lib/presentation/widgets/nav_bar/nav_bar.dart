@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/pages/patients/patients.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
 import '../../pages/home/HomeScreen.dart';
@@ -49,7 +50,12 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               SizedBox(width: 20),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return PatientsPage();
+                  }));
+                },
                 child: TextNavBar(
                   text: 'Pacientes',
                   color: AppTheme.secondary,
@@ -71,18 +77,18 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
               SizedBox(width: 20),
               Row(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppTheme.primary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    // width: 20,
-                    child: IconButton(
-                      icon: Icon(Icons.search),
-                      color: AppTheme.baseWhite,
-                      onPressed: () {},
-                    ),
-                  ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: AppTheme.primary,
+                  //     borderRadius: BorderRadius.circular(12),
+                  //   ),
+                  //   // width: 20,
+                  //   child: IconButton(
+                  //     icon: Icon(Icons.search),
+                  //     color: AppTheme.baseWhite,
+                  //     onPressed: () {},
+                  //   ),
+                  // ),
 
                   SizedBox(width: 10),
                   Container(
