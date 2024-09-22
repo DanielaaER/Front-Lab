@@ -2,26 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
 
-class CustomTextSize extends StatelessWidget {
+class CustomTextNormal extends StatelessWidget {
   final String labelText;
-  final double size;
-  final double width;
 
-
-  const CustomTextSize({
-    required this.labelText, required this.size, required this.width,
+  const CustomTextNormal({
+    required this.labelText,
   }); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
+      width: 200,
       child: Text(
         labelText,
 
         style: TextStyle(
-          fontSize: size,
-          fontWeight: FontWeight.bold,
+          fontSize: 18,
+          // fontWeight: FontWeight.bold,
           color: AppTheme.secondary,
         ),
       ),

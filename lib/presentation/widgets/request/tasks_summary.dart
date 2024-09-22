@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/widgets/Custom_text.dart';
+import '../../themes/Theme.dart';
 import 'task_item.dart';
 import 'section_title.dart';
 
 class TasksSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Container(
+      width: width * 0.55,
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -22,26 +26,13 @@ class TasksSummary extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SectionTitle(
-            title: 'Tareas del Día',
-            trailing: Container(
-              padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                '12',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
+          CustomText(labelText: "Tareas del Día"),
+
           SizedBox(height: 10),
           TaskItem(title: 'Ir a tomar muestra', time: '11:30 AM'),
+          SizedBox(height: 10),
           TaskItem(title: 'Entregar resultados a user', time: '11:30 AM'),
+          SizedBox(height: 10),
           TaskItem(title: 'Revisar resultados de user', time: '11:30 AM'),
           SizedBox(height: 10),
           Align(
@@ -49,7 +40,7 @@ class TasksSummary extends StatelessWidget {
             child: Text(
               'View All',
               style: TextStyle(
-                color: Colors.blue,
+                color: AppTheme.secondary,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 
+import '../../pages/home/HomeScreen.dart';
 import '../../pages/requestAnalisis/analysis_request.dart';
 import '../../pages/template/template_screen.dart';
 import 'Text_nav_bar.dart';
@@ -22,7 +23,12 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           Row(
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return HomeScreen();
+                  }));
+                },
                 child: TextNavBar(
                   text: 'Inicio',
                   color: AppTheme.secondary,
@@ -93,10 +99,10 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   SizedBox(width: 10),
                   SizedBox(width: 10),
-                  // CircleAvatar(
-                  //   backgroundImage: AssetImage('assets/user_avatar.png'),
-                  //   radius: 20,
-                  // ),
+                  CircleAvatar(
+                    // backgroundImage: AssetImage('assets/user_avatar.png'),
+                    backgroundColor: AppTheme.primary,
+                  ),
                 ],
               ),
             ],

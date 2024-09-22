@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/pages/home/HomeScreen.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
 import 'package:front_laboratory/presentation/widgets/Custom_text.dart';
 import 'package:front_laboratory/presentation/widgets/nav_bar/nav_bar.dart';
@@ -109,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       // Navigator.pushNamed(context, '/home');
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                            return TemplateScreen();
+                            return HomeScreen();
                           }));
                     } else {
                       showAlert(context, "Credenciales incorrectas",
