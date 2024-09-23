@@ -4,9 +4,10 @@ import '../Custom_text_normal.dart';
 
 class TaskItem extends StatefulWidget {
   final String title;
-  final String time;
+  final Icon icon;
+  final Function(int) onPress;
 
-  TaskItem({required this.title, required this.time});
+  TaskItem({required this.title, required this.icon, required this.onPress});
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -18,51 +19,44 @@ class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      margin: const EdgeInsets.only(bottom: 10.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppTheme.secondary, width: .5),
-      ),
-      child: Row(
-        children: [
-          Checkbox(
-            value: value,
-            checkColor: AppTheme.baseWhite,
-            activeColor: AppTheme.primary,
-            side: BorderSide(color: AppTheme.primary),
-            onChanged: (bool? newValue) {
-              setState(() {
-                value = newValue!;
-              });
-            },
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.secondary,
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        margin: const EdgeInsets.only(bottom: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: AppTheme.secondary, width: .5),
+        ),
+        child: GestureDetector(
+          onTap: () {
+            widget.onPress(1);
+          },
+          child: Row(
+            children: [
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: AppTheme.primary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  widget.icon.icon,
+                  color: AppTheme.baseWhite,
+                ),
               ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-
-            child:Text(
-              widget.time,
-              style: TextStyle(
-                fontSize: 17,
-                // fontWeight: FontWeight.bold,
-                color: AppTheme.secondary,
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.secondary,
+                  ),
+                ),
               ),
-            ),
-          )
-        ],
-      ),
-    );
+            ],
+          ),
+        ));
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/pages/patients/widgets/add_patient.dart';
+import 'package:front_laboratory/presentation/pages/requestAnalisis/analysis_request.dart';
 import 'package:front_laboratory/presentation/widgets/Custom_text.dart';
 import '../../themes/Theme.dart';
 import 'task_item.dart';
@@ -26,25 +28,31 @@ class TasksSummary extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomText(labelText: "Tareas del Día"),
+          CustomText(labelText: "Atajos Rapidos"),
 
           SizedBox(height: 10),
-          TaskItem(title: 'Ir a tomar muestra', time: '11:30 AM'),
+          TaskItem(
+              title: 'Solicitar Análisis',
+              icon: Icon(Icons.analytics_outlined),
+              onPress: (int index) {}),
           SizedBox(height: 10),
-          TaskItem(title: 'Entregar resultados a user', time: '11:30 AM'),
+          TaskItem(
+              title: 'Registrar Cliente',
+              icon: Icon(Icons.person),
+              onPress: (int index) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AddPatient();
+                    });
+              }),
           SizedBox(height: 10),
-          TaskItem(title: 'Revisar resultados de user', time: '11:30 AM'),
+          TaskItem(
+              title: 'Registrar Pago',
+              icon: Icon(Icons.payments),
+              onPress: (int index) {}),
           SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              'View All',
-              style: TextStyle(
-                color: AppTheme.secondary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+
         ],
       ),
     );

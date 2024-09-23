@@ -66,7 +66,7 @@ var height = MediaQuery.of(context).size.height;
                         ),
                       ),
                       CustomButton(
-                        width: 200,
+                        width: width * 0.128,
                         text: "Registrar resultados",
                         onPressed: () {
                           showDialog(
