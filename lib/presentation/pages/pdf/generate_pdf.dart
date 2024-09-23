@@ -243,6 +243,7 @@ Future<void> generatePdf(Map<String, dynamic> jsonData) async {
   );
 
   // Guardar el archivo como PDF
+  //guardar windows
   String? outputFilePath = await FilePicker.platform.saveFile(
     dialogTitle: 'Guardar archivo PDF',
     fileName: 'reporte_colores.pdf',

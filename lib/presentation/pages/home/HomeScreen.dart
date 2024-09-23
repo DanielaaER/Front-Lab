@@ -16,10 +16,7 @@ class HomeScreen extends StatelessWidget {
       appBar: NavBar(title: 'Inicio'),
       backgroundColor: AppTheme.neutral100,
       body: Container(
-        // color: AppTheme.baseWhite,
-        // width: MediaQuery.of(context).size.width *.9,
-        // margin: EdgeInsets.fromLTRB(
-        //     width * 0.05, height * .05, width * 0.5, height * .04),
+
         padding: EdgeInsets.fromLTRB(width * 0.03, height * .04, width * 0.04, height * .03),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
