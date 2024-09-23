@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:front_laboratory/presentation/pages/auth/login/login_screen.dart';
 import 'package:front_laboratory/presentation/pages/patients/patients.dart';
 import 'package:front_laboratory/presentation/themes/Theme.dart';
+import 'package:front_laboratory/server/auth_service.dart';
 
 import '../../pages/home/HomeScreen.dart';
 import '../../pages/requestAnalisis/analysis_request.dart';
@@ -105,9 +107,83 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   SizedBox(width: 10),
                   SizedBox(width: 10),
-                  CircleAvatar(
-                    // backgroundImage: AssetImage('assets/user_avatar.png'),
-                    backgroundColor: AppTheme.primary,
+                  GestureDetector(
+                    onTap: () {
+                      RenderBox renderBox =
+                          context.findRenderObject() as RenderBox;
+                      Offset offset = renderBox.localToGlobal(Offset.zero);
+
+                      showMenu<String>(
+                        shadowColor: AppTheme.primary,
+                        surfaceTintColor: AppTheme.baseWhite,
+                        context: context,
+                        position: RelativeRect.fromLTRB(
+                          MediaQuery.of(context).size.width - 100,
+                          offset.dy + renderBox.size.height,
+                          0,
+                          0,
+                        ),
+                        color: AppTheme.baseWhite,
+                        items: [
+                          PopupMenuItem<String>(
+                            value: 'perfil',
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: AppTheme.primary,
+                                  // backgroundImage: AssetImage('assets/user_avatar.png'), // Descomenta si tienes imagen
+                                ),
+                                SizedBox(width: 10),
+                                Text('Perfil', style: TextStyle(color: AppTheme.secondary),),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'ajustes',
+                            child: Row(
+                              children: [
+                                Icon(Icons.settings, color: AppTheme.secondary,),
+                                SizedBox(width: 10),
+                                Text('Ajustes', style: TextStyle(color: AppTheme.secondary),),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'cerrar',
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout, color: AppTheme.secondary,),
+                                SizedBox(width: 10),
+                                Text('Cerrar sesión', style: TextStyle(color: AppTheme.secondary),),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ).then((value) {
+                        if (value != null) {
+                          // Manejo de la selección
+                          switch (value) {
+                            case 'perfil':
+                              // Lógica para ir al perfil
+                              break;
+                            case 'ajustes':
+                              // Lógica para ir a los ajustes
+                              break;
+                            case 'cerrar':
+                              AuthService().logout();
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return LoginPage();
+                              }));
+                              break;
+                          }
+                        }
+                      });
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: AppTheme.primary,
+                      // backgroundImage: AssetImage('assets/user_avatar.png'), // Descomenta si tienes imagen
+                    ),
                   ),
                 ],
               ),
