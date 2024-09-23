@@ -34,21 +34,21 @@ class AuthService with ChangeNotifier {
       print("url");
       print(url);
       final response = await Dio().post(
-        '${url}login',
+        '${url}account/login',
         data: {
-          'email': email,
+          'user_name': email,
           'password': password,
         },
         options: Options(
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          headers: {'Content-Type': 'application/json'},
         ),
       );
 
-      // print(response.statusCode);
+      print(response.statusCode);
       print(response.data);
       final data = response.data;
-      if (data['status'] == 200) {
-        userFullName = data['username'];
+      if (response.statusCode == 200) {
+        userFullName = data['user_name'];
         log = true;
         _isLoggedIn = true;
         final preferences = await _storage;
@@ -61,12 +61,12 @@ class AuthService with ChangeNotifier {
       }
 
       notifyListeners(); // Notificar a los listeners del cambio en _isLoggedIn
-      // return _isLoggedIn;
-      return true;
+      return _isLoggedIn;
+      // return true;
     } catch (e) {
       print('Error during login request: $e');
-      // return false;
-      return true;
+      return false;
+      // return true;
     }
   }
 
