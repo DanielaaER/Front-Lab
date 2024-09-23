@@ -44,7 +44,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   }));
                 },
                 child: TextNavBar(
-                  text: 'Solicitud de Analisis',
+                  text: 'Solicitudes de Analisis',
                   color: AppTheme.secondary,
                 ),
               ),

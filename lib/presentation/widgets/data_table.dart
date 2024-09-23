@@ -3,9 +3,9 @@ import 'package:front_laboratory/presentation/themes/Theme.dart';
 
 class DataTableWidget extends StatefulWidget {
   final Map<String, dynamic> jsonData;
-  final Function(int) onEdit;   // Función para editar
+  final Function(int) onEdit; // Función para editar
   final Function(int) onDelete; // Función para eliminar
-  final Function(int) onView;   // Función para ver
+  final Function(int) onView; // Función para ver
 
   DataTableWidget({
     required this.jsonData,
@@ -25,8 +25,17 @@ class _DataTableWidgetState extends State<DataTableWidget> {
   @override
   void initState() {
     super.initState();
-    rows = List<List<String>>.from(widget.jsonData['rows']);
-    headers = List<String>.from(widget.jsonData['headers']);
+    print("table init");
+    print(widget.jsonData);
+    print(widget.jsonData['rows']);
+    print(widget.jsonData['headers']);
+    // rows = List<List<String>>.from(widget.jsonData['rows']);
+    // headers = List<String>.from(widget.jsonData['headers']);
+    headers = List<String>.from(
+        widget.jsonData['headers'].map((header) => header.toString()));
+
+    rows = List<List<String>>.from(widget.jsonData['rows']
+        .map((row) => List<String>.from(row.map((cell) => cell.toString()))));
   }
 
   void _deleteRow(int rowIndex) {
@@ -54,15 +63,18 @@ class _DataTableWidgetState extends State<DataTableWidget> {
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.visibility, color: AppTheme.secondary), // Botón "Ver"
+                icon: Icon(Icons.visibility, color: AppTheme.secondary),
+                // Botón "Ver"
                 onPressed: () {
-                  widget.onView(rowIndex); // Llamar a la función de visualización específica
+                  widget.onView(
+                      rowIndex); // Llamar a la función de visualización específica
                 },
               ),
               IconButton(
                 icon: Icon(Icons.edit, color: AppTheme.secondary),
                 onPressed: () {
-                  widget.onEdit(rowIndex); // Llamar a la función de edición específica
+                  widget.onEdit(
+                      rowIndex); // Llamar a la función de edición específica
                 },
               ),
               IconButton(
